@@ -1,13 +1,10 @@
 package com.github.aedge90.nmm;
 
-import android.os.Bundle;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
+import android.os.Bundle;
 import android.view.Display;
-import android.view.KeyEvent;
 
 public class MainActivity extends Activity {
 
@@ -66,29 +63,6 @@ public class MainActivity extends Activity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-    }
-
-    private void quit() {
-        finish();
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            new AlertDialog.Builder(THIS)
-                    .setIcon(android.R.drawable.ic_dialog_info)
-                    .setTitle(getResources().getString(R.string.quit_game))
-                    .setMessage(getResources().getString(R.string.want_to_quit))
-                    .setPositiveButton(getResources().getString(R.string.yes),
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,
-                                        int id) {
-                                    quit();
-                                }
-                            }).setNegativeButton(getResources().getString(R.string.no), null).show();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
     }
 
 }

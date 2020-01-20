@@ -256,13 +256,13 @@ public class GameModeActivity extends FragmentActivity {
             .setMessage(getResources().getString(R.string.what_do))
             .setPositiveButton(getResources().getString(R.string.quit_game), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    showQuitAlertDialog();
+                    quitGame();
                 }
             })
             .setNegativeButton(getResources().getString(R.string.cancel), null)
             .setNeutralButton(getResources().getString(R.string.start_new_game), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    showNewGameAlertDialog(false);
+                    startNewGame();
                 }
             })
             .show();
@@ -272,46 +272,16 @@ public class GameModeActivity extends FragmentActivity {
         }
     }
 
-    private void showNewGameAlertDialog(final boolean signalSelection){
-        new AlertDialog.Builder(THIS)
-        .setTitle(getString(R.string.start_new_game))
-        .setMessage(getString(R.string.want_to_start_new_game))
-        .setPositiveButton(getString(R.string.yes),
-            new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    setResult(RESULT_RESTART);
-                    gameThread.interrupt();
-                    finish();
-                }
-            }
-        )
-        .setNegativeButton(getString(R.string.no),
-            new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    if(signalSelection) {
-                        signalSelection();
-                    }
-                }
-            }
-        )
-        .show();
+    private void startNewGame() {
+        setResult(RESULT_RESTART);
+        gameThread.interrupt();
+        finish();
     }
 
-    private void showQuitAlertDialog(){
-        new AlertDialog.Builder(THIS)
-        .setTitle(getResources().getString(R.string.quit_game))
-        .setMessage(getResources().getString(R.string.want_to_quit))
-        .setPositiveButton(getResources().getString(R.string.yes),
-            new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog,  int whichButton) {
-                    setResult(RESULT_CANCELED);
-                    gameThread.interrupt();
-                    finish();
-                }
-            }
-        )
-        .setNegativeButton(getString(R.string.no), null)
-        .show();
+    private void quitGame() {
+        setResult(RESULT_CANCELED);
+        gameThread.interrupt();
+        finish();
     }
 
     private void signalSelection(){
@@ -564,7 +534,7 @@ public class GameModeActivity extends FragmentActivity {
                     .setPositiveButton(getResources().getString(R.string.quit_game), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
-                            showQuitAlertDialog();
+                            quitGame();
                         }
                     })
                     .setNeutralButton(getResources().getString(R.string.start_new_game), new DialogInterface.OnClickListener(){
@@ -606,7 +576,7 @@ public class GameModeActivity extends FragmentActivity {
                         .setNegativeButton(getString(R.string.start_new_game), new DialogInterface.OnClickListener(){
                             @Override
                             public void onClick(DialogInterface dialogInterface, int id) {
-                                showNewGameAlertDialog(true);
+                                startNewGame();
                             }
                         })
                         .setCancelable(false)

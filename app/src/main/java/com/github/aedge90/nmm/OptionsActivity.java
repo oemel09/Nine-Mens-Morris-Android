@@ -16,9 +16,7 @@
 
 package com.github.aedge90.nmm;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -29,7 +27,6 @@ import android.preference.PreferenceManager;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -80,25 +77,6 @@ public class OptionsActivity extends android.support.v4.app.FragmentActivity{
 
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            new AlertDialog.Builder(this)
-            .setIcon(android.R.drawable.ic_dialog_info)
-            .setTitle(getResources().getString(R.string.quit_game))
-            .setMessage(getResources().getString(R.string.want_to_quit))
-            .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    setResult(RESULT_CANCELED);
-                    finish();
-                }
-            })
-            .setNegativeButton(getResources().getString(R.string.no), null)
-            .show();
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
     private void setMillVariant() {
 
         final ItemsAdapter items = new ItemsAdapter(this, R.layout.spinner_item);
@@ -128,7 +106,7 @@ public class OptionsActivity extends android.support.v4.app.FragmentActivity{
     }
 
     private void setPlayerDifficultyFor(final Player player) {
-        
+
         final ArrayAdapter<String> items = new ArrayAdapter<String>(this, R.layout.spinner_item);
         items.add("Bot (" + getString(getResources().getIdentifier(Options.Difficulties.EASIER.name(), "string", getPackageName())) + ")");
         items.add("Bot (" + getString(getResources().getIdentifier(Options.Difficulties.EASY.name(), "string", getPackageName())) + ")");
